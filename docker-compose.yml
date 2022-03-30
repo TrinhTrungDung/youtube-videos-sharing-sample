@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  database:
+    image: postgres
+    container_name: $DB_CONTAINER_NAME
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_DB=$DB_NAME
+    ports:
+      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+    volumes:
+      - database:/data/db
+    networks:
+      - backend
+  backend:
+    depends_on:
+      - database
+    build:
+      context: backend
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - PSQL_HOST=$DB_CONTAINER_NAME
+      - PSQL_USER=$DB_USER
+      - PSQL_PASSWORD=$DB_PASSWORD
+      - PSQL_NAME=$DB_NAME
+      - PSQL_PORT=$DB_PORT
+      - CLIENT_ORIGIN=$CLIENT_ORIGIN
+    networks:
+      - backend
+      - frontend
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: frontend
+      args:
+        - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+    networks:
+      - frontend
+volumes:
+  database:
+networks:
+  backend:
+  frontend:
