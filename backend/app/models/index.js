@@ -1,14 +1,7 @@
 require("dotenv").config();
-const {
-    DB_DIALECT,
-    DB_USER,
-    DB_PASSWORD,
-    DB_HOST,
-    DB_PORT,
-    DB_NAME,
-  } = process.env;
+const { DATABASE_URL } = process.env;
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(`${DB_DIALECT}://${DB_USER}:${DB_PASSWORD}@${DB_HOST || "localhost"}:${DB_PORT}/${DB_NAME}?sslmode=disable`);
+const sequelize = new Sequelize(DATABASE_URL);
 
 const db = {};
 db.Sequelize = Sequelize;
