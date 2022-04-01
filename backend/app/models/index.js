@@ -9,7 +9,20 @@ const {
     DB_SSL_MODE
   } = process.env;
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(`${DB_DIALECT}://${DB_USER}:${DB_PASSWORD}@${DB_HOST || "localhost"}:${DB_PORT}/${DB_NAME}?sslmode=${DB_SSL_MODE}`);
+const sequelize = new Sequelize({
+    dialect: DB_DIALECT,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    host: DB_HOST,
+    port: DB_PORT,
+    database: DB_NAME,
+    dialectOptions: {
+        ssl: {
+            require: DB_SSL_MODE,
+            rejectUnauthorized: false
+        }
+    }
+});
 
 const db = {};
 db.Sequelize = Sequelize;
