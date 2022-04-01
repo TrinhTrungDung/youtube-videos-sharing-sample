@@ -13,9 +13,7 @@ const youtube = google.youtube({
 
 exports.getMovies = (_, res) => {
     Movie.findAll().then(movies => {
-        return res.status(200).send({
-            data: movies
-        });
+        return res.status(200).send(movies);
     }).catch(err => {
         return res.status(500).send({ message: err.message });
     });
@@ -57,7 +55,7 @@ exports.createMovie = (req, res) => {
             }).then(movie => {
                 user.addMovie(movie);
                 return res.status(201).send({
-                    message: "Movie created"
+                    message: "Successfully share youtube video"
                 });
             }).catch(err => {
                 return res.status(500).send({ message : err.message });
