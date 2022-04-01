@@ -21,7 +21,6 @@ const Login = () => {
     const checkBtn = useRef();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     
     const onChangeEmail = e => {
@@ -37,29 +36,20 @@ const Login = () => {
     const handleLogin = e => {
         e.preventDefault();
         setMessage("");
-        // setLoading(true);
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.login(email, password).then(() => {
                 navigate("/");
                 window.location.reload();
             }, err => {
-                    setMessage(err.response.data.message);
-                    // setLoading(false);
+                setMessage(err.response.data.message);
             });
-        } else {
-            // setLoading(false);
         }
     };
 
     return (
         <div className="col-md-12">
             <div className="card card-container">
-            {/* <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                alt="profile-img"
-                className="profile-img-card"
-            /> */}
                 <Form onSubmit={handleLogin} ref={form}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>

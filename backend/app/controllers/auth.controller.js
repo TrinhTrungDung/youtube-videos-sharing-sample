@@ -3,7 +3,6 @@ const emailValidator = require("../utils/email");
 const passwordValidator = require("../utils/password");
 const db = require("../models");
 const User = db.user;
-const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 

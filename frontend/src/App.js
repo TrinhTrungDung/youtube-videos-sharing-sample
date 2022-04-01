@@ -36,7 +36,7 @@ const App = () => {
                 </div>
                 {currentUser ? (
                 <div className="navbar-nav ml-auto">
-                    <li className="nav-item">
+                    <li className="nav-item navbar-light">
                         <p>Welcome {currentUser.email}</p>
                     </li>
                     <li className="nav-item">
