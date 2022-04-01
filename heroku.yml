@@ -7,4 +7,7 @@ build:
     backend: backend/Dockerfile
     frontend: frontend/Dockerfile
 run:
-  web: npm start
+  web:
+    command:
+      - npm start
+    image: frontend
