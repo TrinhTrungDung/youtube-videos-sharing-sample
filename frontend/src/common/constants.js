@@ -1,1 +1,1 @@
-export const BASE_API_URL = "http://localhost:6868/api";
+export const BASE_API_URL = "https://youtube-videos-sharing.herokuapp.com/api";
